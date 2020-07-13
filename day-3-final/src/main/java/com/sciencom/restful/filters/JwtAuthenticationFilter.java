@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,6 +28,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	
+	
+
+	public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
+		this.authenticationManager = authenticationManager;
+	}
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, 
@@ -68,7 +75,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	                )
 	                .withExpiresAt(new Date(System.currentTimeMillis()+SecurityConstant.EXPIRATION_TIME))
 	                .sign(Algorithm.HMAC512(SecurityConstant.SECRET.getBytes()));
-	        //response.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
 	        response.setContentType("application/json");
 	        response.setCharacterEncoding("UTF-8");
 	        response.getWriter().write(

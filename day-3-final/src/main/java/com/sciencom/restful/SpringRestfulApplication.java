@@ -6,15 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.sciencom.restful.models.Student;
+import com.sciencom.restful.models.User;
 import com.sciencom.restful.repositories.StudentRespository;
+import com.sciencom.restful.repositories.UserRepository;
 
 @SpringBootApplication
 public class SpringRestfulApplication implements CommandLineRunner {
 
 	@Autowired
 	private StudentRespository studentRespository;	
+	
+//	@Autowired
+//	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private UserRepository userRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SpringRestfulApplication.class, args);
@@ -27,7 +36,10 @@ public class SpringRestfulApplication implements CommandLineRunner {
 //		saveData();
 //		showData();
 //		deleteData();
+	
+		
 	}
+	
 	
 	public void saveData() {
 		Student myStudent = new Student();
